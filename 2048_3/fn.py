@@ -1,8 +1,13 @@
 from global_variables import *
+import global_variables
 import random
 from config import *
+import copy
+from tkinter import messagebox
 
-def move_up(event=0) :
+
+
+def move_up( event=0) :
     any_movement = False
 
     merged = [False] * 4
@@ -47,10 +52,15 @@ def move_up(event=0) :
 
     # set_label_equal_matrix()
     if any_movement :
+        global_variables.moves += 1   
         add_2_or_4()
+    else :
+        dummy_game_over_check(copy.deepcopy(global_variables.matrix))
+    # print(dummy_game_over_check(copy.deepcopy(global_variables.matrix)))
+    # print(f"L={dummy_move_left(copy.deepcopy(global_variables.matrix))} R={dummy_move_right(copy.deepcopy(global_variables.matrix))} U={dummy_move_up(copy.deepcopy(global_variables.matrix))} D={dummy_move_down(copy.deepcopy(global_variables.matrix))}")
     return any_movement
 
-def move_down(event=0) :
+def move_down( event=0) :
     any_movement = False
 
     merged = [0] * 4
@@ -94,10 +104,15 @@ def move_down(event=0) :
 
     # set_label_equal_matrix()
     if any_movement :
+        global_variables.moves += 1 
         add_2_or_4()
+    else :
+        dummy_game_over_check(copy.deepcopy(global_variables.matrix))
+    # print(dummy_game_over_check(copy.deepcopy(global_variables.matrix)))
+    # print(f"L={dummy_move_left(copy.deepcopy(global_variables.matrix))} R={dummy_move_right(copy.deepcopy(global_variables.matrix))} U={dummy_move_up(copy.deepcopy(global_variables.matrix))} D={dummy_move_down(copy.deepcopy(global_variables.matrix))}")
     return any_movement
 
-def move_left(event=0) :
+def move_left( event=0) :
     any_movement = False
 
     merged = [False] * 4
@@ -141,10 +156,15 @@ def move_left(event=0) :
 
     # set_label_equal_matrix()
     if any_movement :
+        global_variables.moves += 1 
         add_2_or_4()
+    else :
+        dummy_game_over_check(copy.deepcopy(global_variables.matrix))
+    # print(dummy_game_over_check(copy.deepcopy(global_variables.matrix)))
+    # print(f"L={dummy_move_left(copy.deepcopy(global_variables.matrix))} R={dummy_move_right(copy.deepcopy(global_variables.matrix))} U={dummy_move_up(copy.deepcopy(global_variables.matrix))} D={dummy_move_down(copy.deepcopy(global_variables.matrix))}")
     return any_movement
 
-def move_right(event=0) :
+def move_right( event=0) :
     any_movement = False
 
     for row in range(4) :
@@ -189,11 +209,20 @@ def move_right(event=0) :
 
     # set_label_equal_matrix()
     if any_movement :
+        global_variables.moves += 1 
         add_2_or_4()
+    else :
+        dummy_game_over_check(copy.deepcopy(global_variables.matrix))
 
+
+    # print(dummy_game_over_check(copy.deepcopy(global_variables.matrix)))
+    # print(f"L={dummy_move_left(copy.deepcopy(global_variables.matrix))} R={dummy_move_right(copy.deepcopy(global_variables.matrix))} U={dummy_move_up(copy.deepcopy(global_variables.matrix))} D={dummy_move_down(copy.deepcopy(global_variables.matrix))}")
     return any_movement
 
 def add_2_or_4() :
+    # Set the moves label.
+    lab_moves.config(text=f"Number of Moves = {global_variables.moves}", font=("", 16), bg="#F5F5F5", fg="#333333", width=50)
+
     # First Know the zero indices. Then do a random.choice from them.
     zero_indices = []
     for row in range(4) :
@@ -251,4 +280,225 @@ def set_label_equal_matrix() :
     lab_31.config(bg=TILE_COLORS.get(matrix[3][1]), fg=TEXT_COLORS.get(matrix[3][1]))
     lab_32.config(bg=TILE_COLORS.get(matrix[3][2]), fg=TEXT_COLORS.get(matrix[3][2]))
     lab_33.config(bg=TILE_COLORS.get(matrix[3][3]), fg=TEXT_COLORS.get(matrix[3][3]))
+
+
+# Dummy Functions for Testing.
+
+def dummy_move_left(dummy_matrix) :
+    any_movement = False
+
+    merged = [False] * 4
+
+    for row in range(4) :
+        for main_column in range(3) :
+            if dummy_matrix[row][main_column] == 0 :
+                continue
+
+            for second_column in range(main_column+1, 4) :
+                if dummy_matrix[row][second_column] == 0 :
+                    continue
+
+                if dummy_matrix[row][main_column] != dummy_matrix[row][second_column] :
+                    break
+                
+                if dummy_matrix[row][main_column] == dummy_matrix[row][second_column] and not merged[second_column] :
+                    dummy_matrix[row][main_column] *= 2
+                    dummy_matrix[row][second_column] = 0
+                    any_movement = True
+                    merged[main_column] = True
+                    break
+
+    for row in range(4) :
+        # Any movement check.
+        for column in range(3) :
+            if dummy_matrix[row][column] == 0 :
+                for second_column in range(column+1, 4) :
+                    if dummy_matrix[row][second_column] != 0 :
+                        any_movement = True
+
+        # Merge zeroes.
+        index_counter = 0
+        for column in range(4) :
+            if dummy_matrix[row][column] != 0 :
+                dummy_matrix[row][index_counter] = dummy_matrix[row][column]
+                if index_counter != column :
+                    dummy_matrix[row][column] = 0
+                index_counter += 1
+            
+    if any_movement :
+        # dummy_add_2_or_4()
+        pass
+    return any_movement
+
+def dummy_move_right(dummy_matrix) :
+    any_movement = False
+
+    for row in range(4) :
+
+        merged = [False] * 4
+
+        for main_column in range(3,0,-1) :
+            if dummy_matrix[row][main_column] == 0 :
+                continue
+
+            for second_column in range(main_column-1,-1,-1) :
+                if dummy_matrix[row][second_column] == 0 :
+                    continue
+
+                if dummy_matrix[row][main_column] != dummy_matrix[row][second_column] :
+                    break
+                
+                if dummy_matrix[row][main_column] == dummy_matrix[row][second_column] and not merged[second_column] :
+                    dummy_matrix[row][main_column] *= 2
+                    dummy_matrix[row][second_column] = 0
+                    any_movement = True
+                    merged[main_column] = True
+                    break
+
+    for row in range(4) :
+        # Any movement check.
+        for column in range(3, 0,-1) :
+            if dummy_matrix[row][column] == 0 :
+                for second_column in range(column-1, -1, -1) :
+                    if dummy_matrix[row][second_column] != 0 :
+                        any_movement = True
+
+        # Merge zeroes.
+        index_counter = 3
+        for column in range(3,-1,-1) :
+            if dummy_matrix[row][column] != 0 :
+                dummy_matrix[row][index_counter] = dummy_matrix[row][column]
+                if index_counter != column :
+                    dummy_matrix[row][column] = 0
+                index_counter -= 1
+            
+    if any_movement :
+        # dummy_add_2_or_4()
+        pass
+
+
+    return any_movement
+
+def dummy_move_down(dummy_matrix) :
+    any_movement = False
+
+    merged = [0] * 4
+
+    for column in range(4) :
+        for main_row in range(3) :
+            if dummy_matrix[main_row][column] == 0 :
+                continue
+
+            for second_row in range(main_row+1, 4) :
+                if dummy_matrix[second_row][column] == 0 :
+                    continue
+                
+                if dummy_matrix[main_row][column] != dummy_matrix[second_row][column] :
+                    break
+
+                if dummy_matrix[main_row][column] == dummy_matrix[second_row][column] and not merged[second_row]:
+                    dummy_matrix[second_row][column] *= 2
+                    dummy_matrix[main_row][column] = 0
+                    any_movement = True
+                    merged[main_row] = True
+                    break
+
+    for column in range(4) :
+        # Any movement check.
+        for row in range(3,0,-1) :
+            if dummy_matrix[row][column] == 0 :
+                for second_row in range(row-1, -1,-1) :
+                    if dummy_matrix[second_row][column] != 0 :
+                        any_movement = True
+
+        # Merge zeroes.
+        index_counter = 3
+        for row in range(3,-1, -1) :
+            if dummy_matrix[row][column] != 0 :
+                dummy_matrix[index_counter][column] = dummy_matrix[row][column]
+                if index_counter != row :
+                    dummy_matrix[row][column] = 0
+                index_counter -= 1
+            
+
+    if any_movement :
+        # dummy_add_2_or_4()
+        pass
+    return any_movement
+
+def dummy_move_up(dummy_matrix) :
+
+
+    any_movement = False
+
+    merged = [False] * 4
+
+    for column in range(4) :
+        for main_row in range(3) :
+            if dummy_matrix[main_row][column] == 0 :
+                continue
+
+            for second_row in range(main_row+1, 4) :
+                if dummy_matrix[second_row][column] == 0 :
+                    continue
+                
+                if dummy_matrix[main_row][column] != dummy_matrix[second_row][column] :
+                    break
+
+                if dummy_matrix[main_row][column] == dummy_matrix[second_row][column] and not merged[second_row] :
+                    dummy_matrix[main_row][column] *= 2
+                    dummy_matrix[second_row][column] = 0
+                    any_movement = True
+                    merged[main_row] = True
+                    break
+
+
+    for column in range(4) :
+        # Any movement check.
+        for row in range(3) :
+            if dummy_matrix[row][column] == 0 :
+                for second_row in range(row+1, 4) :
+                    if dummy_matrix[second_row][column] != 0 :
+                        any_movement = True
+
+        # Merge zeroes.
+        index_counter = 0
+        for row in range(4) :
+            if dummy_matrix[row][column] != 0 :
+                dummy_matrix[index_counter][column] = dummy_matrix[row][column]
+                if index_counter != row :
+                    dummy_matrix[row][column] = 0
+                index_counter += 1
+            
+
+    # set_label_equal_matrix()
+    if any_movement : 
+        # dummy_add_2_or_4()
+        pass
+    return any_movement
+
+def dummy_add_2_or_4(dummy_matrix) :
+    # First Know the zero indices. Then do a random.choice from them.
+    zero_indices = []
+    for row in range(4) :
+        for column in range(4) :
+            if dummy_matrix[row][column] == 0 :
+                zero_indices.append([row,column])
+    
+    if len(zero_indices) == 0 :
+        return False
+    else :
+        row_column = random.choice(zero_indices)
+        dummy_matrix[row_column[0]][row_column[1]] = random.choice([2,2,2,2,2,2,2,2,2,4])
+        return True
+    
+def dummy_game_over_check(dummy_matrix) : 
+    
+    if not (dummy_move_up(dummy_matrix) or dummy_move_down(dummy_matrix) or dummy_move_left(dummy_matrix) or dummy_move_right(dummy_matrix)) :
+        messagebox.showerror("", "Game Over !")
+        return True
+    else :
+        return False
+
+
 

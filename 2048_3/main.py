@@ -1,5 +1,5 @@
 """
-    2048 Version 2
+    2048 Version 3
     Author : Aadityaraj Kaushal
     Date   : 02.04.25
 """
@@ -7,8 +7,10 @@
 from tkinter import *
 import random
 from config import TILE_COLORS, TEXT_COLORS
-from fn import move_down, move_left, move_right,move_up, add_2_or_4, set_label_equal_matrix
+from fn import *
 from global_variables import *
+import global_variables
+import copy
 
 
 
@@ -39,12 +41,11 @@ lab_31.grid(row=3 , column=1, padx=10, pady=10)
 lab_32.grid(row=3 , column=2, padx=10, pady=10)
 lab_33.grid(row=3 , column=3, padx=10, pady=10)
 
+lab_moves.grid(row=4, column=0, columnspan=4)
 
 
 
-
-
-# for _ in range(200) :
+# for _ in range(1000) :
 #     a = random.randint(1,4)
 #     match a :
 #         case 1 :
@@ -55,6 +56,9 @@ lab_33.grid(row=3 , column=3, padx=10, pady=10)
 #             move_up()
 #         case 4 : 
 #             move_right()
+#     print(dummy_game_over_check(copy.deepcopy(global_variables.matrix)))
+    # print(f"L={dummy_move_left(copy.deepcopy(global_variables.matrix))} R={dummy_move_right(copy.deepcopy(global_variables.matrix))} U={dummy_move_up(copy.deepcopy(global_variables.matrix))} D={dummy_move_down(copy.deepcopy(global_variables.matrix))}")
+
 
 # Keystroke Input.
 root.bind("<Left>", move_left)
@@ -65,4 +69,3 @@ root.bind("<Down>", move_down)
 
 root.mainloop()
 
-# Mainloop

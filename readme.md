@@ -15,10 +15,9 @@
 
 ## Change Log
 
-#### Version 0
+### Version 0
 
 ![2048 v0](https://drive.google.com/uc?export=view&id=1PSxOJa9RioHAYHr1KpJacEwTtgW9bG-J)
-
 
 Implemented a basic 2048 game in **Python** using **Tkinter**.
 - Keyboard Arrow Keys Only.
@@ -29,7 +28,7 @@ Implemented a basic 2048 game in **Python** using **Tkinter**.
 - Probabilities of 2 and 4 spawning are 50% each.
 - No Game Over Dialog Box. Manual judging required.
 
-#### Version 1
+### Version 1
 ![2048 v1](https://drive.google.com/uc?export=view&id=1vA2pXsEhnMTToTJd4FmtTfOVERgxbB37)
 
 - Added Beautiful Colors.
@@ -39,7 +38,7 @@ Implemented a basic 2048 game in **Python** using **Tkinter**.
     - 2 : 90%
     - 4 : 10%
 
-#### Version 2
+### Version 2
 - Fixed a __MAJOR__ bug in the tile movement logic, For all three Versions 0, 1 and 2.
 Major Bugs Included :
     1. __Double Merging__ of some tiles in the same move.
@@ -49,3 +48,11 @@ Major Bugs Included :
     2. __fn__ : All the functions used.
     3. __global_variables__ : All Global Variables Definitions and Declarations.
     3. __main__ : To send commands via Key Input.
+
+### Version 3
+![2048 v3](https://drive.google.com/uc?export=view&id=1kcMpqkh1m77a2D2l3eWkV3ECGs1RtskI)
+
+- Improved Colors for a More Premium Feel.
+- Added a counter for the __Number of Moves__.
+- Added a __Game Over Dialog Box.__
+- Added improved backend functions for backtesting.

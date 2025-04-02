@@ -1,9 +1,14 @@
 from tkinter import *
 
 
+# Global variable to keep track of the number of moves.
+global moves 
+moves = 0
+
+
 # Main Instance
 root = Tk()
-root.title("2048 Version 2")
+root.title("2048 Version 3")
 # root.geometry("400x400")
 
 
@@ -101,4 +106,13 @@ lab_30 = Label(root, textvariable=var_30, width=3, font=("", 25),  fg="white", p
 lab_31 = Label(root, textvariable=var_31, width=3, font=("", 25),  fg="white", padx=40, pady=40)
 lab_32 = Label(root, textvariable=var_32, width=3, font=("", 25),  fg="white", padx=40, pady=40)
 lab_33 = Label(root, textvariable=var_33, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+
+
+# Adding Label for Number of moves.
+global lab_moves
+lab_moves = Label(root, text=f"Number of Moves = {moves}", font=("", 16))
+
+
+
+
 
