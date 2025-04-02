@@ -2,7 +2,6 @@
     2048 Version 0
     Author : Aadityaraj Kaushal
     Date   : 02.04.25
-    Note   : No ChatGPT was used XD
 """
 
 
