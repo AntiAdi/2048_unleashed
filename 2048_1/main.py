@@ -1,5 +1,5 @@
 """
-    2048 Version 0
+    2048 Version 1
     Author : Aadityaraj Kaushal
     Date   : 02.04.25
 """
@@ -9,9 +9,13 @@ from tkinter import *
 import random
 
 
+
+
+
+
 # Main Instance
 root = Tk()
-root.title("2048 Version 0")
+root.title("2048 Version 1")
 # root.geometry("400x400")
 
 # 2D Array to store numbers.
@@ -19,30 +23,174 @@ global matrix
 matrix = [[0]*4 for i in range(4)]
 
 
-"""
-    Functions
-"""
-# Function to set the labels in accordance to the 2D matrix values.
+TILE_COLORS = {
+    0: "#5a5348",    
+    2: "#d6c5b3",    
+    4: "#cdb8a6",    
+    8: "#d19158",    
+    16: "#c77b4f",   
+    32: "#c76352",   
+    64: "#c14c32",   
+    128: "#c4b15a",  
+    256: "#c4ab54",  
+    512: "#c4a84b",  
+    1024: "#c4a23d", 
+    2048: "#c4992d" ,
+    4096: "#c4992d",
+    8192: "#c4992d",
+    16384: "#c4992d",
+    32768: "#c4992d" 
+}
+
+TEXT_COLORS = {
+    0: "#5a5348",    
+    2: "#5a5348",    
+    4: "#5a5348",    
+    8: "#ece8e1",    
+    16: "#ece8e1",   
+    32: "#ece8e1",   
+    64: "#ece8e1",   
+    128: "#ece8e1",  
+    256: "#ece8e1",  
+    512: "#ece8e1",  
+    1024: "#ece8e1", 
+    2048: "#ece8e1",
+    4096: "#ece8e1",
+    8192: "#ece8e1",
+    16384: "#ece8e1",
+    32768: "#ece8e1"
+}
+
+#Declaring labels.
+global lab_00
+global lab_01
+global lab_02
+global lab_03
+
+global lab_10
+global lab_11
+global lab_12
+global lab_13
+
+global lab_20
+global lab_21
+global lab_22
+global lab_23
+
+global lab_30
+global lab_31
+global lab_32
+global lab_33
+
+global var_00
+global var_01
+global var_02
+global var_03
+
+global var_10
+global var_11
+global var_12
+global var_13
+
+global var_20
+global var_21
+global var_22
+global var_23
+
+global var_30
+global var_31
+global var_32
+global var_33
+
+
+
+# Variables for tkinter to use.
+var_00 = IntVar()
+var_01 = IntVar()
+var_02 = IntVar()
+var_03 = IntVar()
+
+var_10 = IntVar()
+var_11 = IntVar()
+var_12 = IntVar()
+var_13 = IntVar()
+
+var_20 = IntVar()
+var_21 = IntVar()
+var_22 = IntVar()
+var_23 = IntVar()
+
+var_30 = IntVar()
+var_31 = IntVar()
+var_32 = IntVar()
+var_33 = IntVar()
+
+
+# Declaring Labels.
+lab_00 = Label(root, textvariable=var_00, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+lab_01 = Label(root, textvariable=var_01, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+lab_02 = Label(root, textvariable=var_02, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+lab_03 = Label(root, textvariable=var_03, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+
+lab_10 = Label(root, textvariable=var_10, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+lab_11 = Label(root, textvariable=var_11, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+lab_12 = Label(root, textvariable=var_12, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+lab_13 = Label(root, textvariable=var_13, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+
+lab_20 = Label(root, textvariable=var_20, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+lab_21 = Label(root, textvariable=var_21, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+lab_22 = Label(root, textvariable=var_22, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+lab_23 = Label(root, textvariable=var_23, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+
+lab_30 = Label(root, textvariable=var_30, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+lab_31 = Label(root, textvariable=var_31, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+lab_32 = Label(root, textvariable=var_32, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+lab_33 = Label(root, textvariable=var_33, width=3, font=("", 25),  fg="white", padx=40, pady=40)
+
+
 def set_label_equal_matrix() :
-    var_00.set(matrix[0][0])
-    var_01.set(matrix[0][1])
-    var_02.set(matrix[0][2])
-    var_03.set(matrix[0][3])
 
-    var_10.set(matrix[1][0])
-    var_11.set(matrix[1][1])
-    var_12.set(matrix[1][2])
-    var_13.set(matrix[1][3])
+    var_00.set(int(matrix[0][0]))
+    var_01.set(int(matrix[0][1]))
+    var_02.set(int(matrix[0][2]))
+    var_03.set(int(matrix[0][3]))
 
-    var_20.set(matrix[2][0])
-    var_21.set(matrix[2][1])
-    var_22.set(matrix[2][2])
-    var_23.set(matrix[2][3])
+    var_10.set(int(matrix[1][0]))
+    var_11.set(int(matrix[1][1]))
+    var_12.set(int(matrix[1][2]))
+    var_13.set(int(matrix[1][3]))
 
-    var_30.set(matrix[3][0])
-    var_31.set(matrix[3][1])
-    var_32.set(matrix[3][2])
-    var_33.set(matrix[3][3]) 
+    var_20.set(int(matrix[2][0]))
+    var_21.set(int(matrix[2][1]))
+    var_22.set(int(matrix[2][2]))
+    var_23.set(int(matrix[2][3]))
+
+    var_30.set(int(matrix[3][0]))
+    var_31.set(int(matrix[3][1]))
+    var_32.set(int(matrix[3][2]))
+    var_33.set(int(matrix[3][3])) 
+
+    # Changing the colors of tiles based on the value on them.
+    lab_00.config(bg=TILE_COLORS.get(matrix[0][0]), fg=TEXT_COLORS.get(matrix[0][0]))
+    lab_01.config(bg=TILE_COLORS.get(matrix[0][1]), fg=TEXT_COLORS.get(matrix[0][1]))
+    lab_02.config(bg=TILE_COLORS.get(matrix[0][2]), fg=TEXT_COLORS.get(matrix[0][2]))
+    lab_03.config(bg=TILE_COLORS.get(matrix[0][3]), fg=TEXT_COLORS.get(matrix[0][3]))
+
+    lab_10.config(bg=TILE_COLORS.get(matrix[1][0]), fg=TEXT_COLORS.get(matrix[1][0]))
+    lab_11.config(bg=TILE_COLORS.get(matrix[1][1]), fg=TEXT_COLORS.get(matrix[1][1]))
+    lab_12.config(bg=TILE_COLORS.get(matrix[1][2]), fg=TEXT_COLORS.get(matrix[1][2]))
+    lab_13.config(bg=TILE_COLORS.get(matrix[1][3]), fg=TEXT_COLORS.get(matrix[1][3]))
+
+    lab_20.config(bg=TILE_COLORS.get(matrix[2][0]), fg=TEXT_COLORS.get(matrix[2][0]))
+    lab_21.config(bg=TILE_COLORS.get(matrix[2][1]), fg=TEXT_COLORS.get(matrix[2][1]))
+    lab_22.config(bg=TILE_COLORS.get(matrix[2][2]), fg=TEXT_COLORS.get(matrix[2][2]))
+    lab_23.config(bg=TILE_COLORS.get(matrix[2][3]), fg=TEXT_COLORS.get(matrix[2][3]))
+
+    lab_30.config(bg=TILE_COLORS.get(matrix[3][0]), fg=TEXT_COLORS.get(matrix[3][0]))
+    lab_31.config(bg=TILE_COLORS.get(matrix[3][1]), fg=TEXT_COLORS.get(matrix[3][1]))
+    lab_32.config(bg=TILE_COLORS.get(matrix[3][2]), fg=TEXT_COLORS.get(matrix[3][2]))
+    lab_33.config(bg=TILE_COLORS.get(matrix[3][3]), fg=TEXT_COLORS.get(matrix[3][3]))
+
 
 """
     [0, 0][0, 1][0, 2][0, 3] 
@@ -69,6 +217,7 @@ def move_up(event) :
                     matrix[second_row][column] = 0
                     any_movement = True
                     break
+
 
     for column in range(4) :
         # Any movement check.
@@ -231,81 +380,9 @@ def add_2_or_4() :
 
 
 
-
-
-
-# Making var global.
-global var_00
-global var_01
-global var_02
-global var_03
-
-global var_10
-global var_11
-global var_12
-global var_13
-
-global var_20
-global var_21
-global var_22
-global var_23
-
-global var_30
-global var_31
-global var_32
-global var_33
-
-
-
-
-# Variables for tkinter to use.
-var_00 = IntVar()
-var_01 = IntVar()
-var_02 = IntVar()
-var_03 = IntVar()
-
-var_10 = IntVar()
-var_11 = IntVar()
-var_12 = IntVar()
-var_13 = IntVar()
-
-var_20 = IntVar()
-var_21 = IntVar()
-var_22 = IntVar()
-var_23 = IntVar()
-
-var_30 = IntVar()
-var_31 = IntVar()
-var_32 = IntVar()
-var_33 = IntVar()
-
-# Initialising these variables to zero.
+# Initialising the variables var to zero and making the labels colorful.
 set_label_equal_matrix()
 
-
-
-
-
-# Declaring labels.
-lab_00 = Label(root, textvariable=var_00, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
-lab_01 = Label(root, textvariable=var_01, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
-lab_02 = Label(root, textvariable=var_02, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
-lab_03 = Label(root, textvariable=var_03, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
-
-lab_10 = Label(root, textvariable=var_10, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
-lab_11 = Label(root, textvariable=var_11, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
-lab_12 = Label(root, textvariable=var_12, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
-lab_13 = Label(root, textvariable=var_13, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
-
-lab_20 = Label(root, textvariable=var_20, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
-lab_21 = Label(root, textvariable=var_21, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
-lab_22 = Label(root, textvariable=var_22, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
-lab_23 = Label(root, textvariable=var_23, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
-
-lab_30 = Label(root, textvariable=var_30, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
-lab_31 = Label(root, textvariable=var_31, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
-lab_32 = Label(root, textvariable=var_32, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
-lab_33 = Label(root, textvariable=var_33, width=3, font=("", 25), bg="black", fg="white", padx=40, pady=40)
 
 """
     [0, 0][0, 1][0, 2][0, 3] 
@@ -338,15 +415,12 @@ lab_33.grid(row=3 , column=3, padx=10, pady=10)
 
 
 
-# Calling functions
-
-
-
-
 root.bind("<Left>", move_left)
 root.bind("<Right>", move_right)
 root.bind("<Up>", move_up)
 root.bind("<Down>", move_down)
+
+
 
 # Mainloop
 root.mainloop()
