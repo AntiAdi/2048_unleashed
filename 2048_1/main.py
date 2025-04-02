@@ -203,6 +203,8 @@ def set_label_equal_matrix() :
 def move_up(event) :
     any_movement = False
 
+    merged = [False] * 4
+
     for column in range(4) :
         for main_row in range(3) :
             if matrix[main_row][column] == 0 :
@@ -212,10 +214,14 @@ def move_up(event) :
                 if matrix[second_row][column] == 0 :
                     continue
                 
-                if matrix[main_row][column] == matrix[second_row][column] :
+                if matrix[main_row][column] != matrix[second_row][column] :
+                    break
+
+                if matrix[main_row][column] == matrix[second_row][column] and not merged[second_row] :
                     matrix[main_row][column] *= 2
                     matrix[second_row][column] = 0
                     any_movement = True
+                    merged[main_row] = True
                     break
 
 
@@ -238,11 +244,14 @@ def move_up(event) :
             
 
     # set_label_equal_matrix()
-    add_2_or_4()
+    if any_movement :
+        add_2_or_4()
     return any_movement
 
 def move_down(event) :
     any_movement = False
+
+    merged = [0] * 4
 
     for column in range(4) :
         for main_row in range(3) :
@@ -253,10 +262,14 @@ def move_down(event) :
                 if matrix[second_row][column] == 0 :
                     continue
                 
-                if matrix[main_row][column] == matrix[second_row][column] :
+                if matrix[main_row][column] != matrix[second_row][column] :
+                    break
+
+                if matrix[main_row][column] == matrix[second_row][column] and not merged[second_row]:
                     matrix[second_row][column] *= 2
                     matrix[main_row][column] = 0
                     any_movement = True
+                    merged[main_row] = True
                     break
 
     for column in range(4) :
@@ -278,11 +291,14 @@ def move_down(event) :
             
 
     # set_label_equal_matrix()
-    add_2_or_4()
+    if any_movement :
+        add_2_or_4()
     return any_movement
 
 def move_left(event) :
     any_movement = False
+
+    merged = [False] * 4
 
     for row in range(4) :
         for main_column in range(3) :
@@ -292,11 +308,15 @@ def move_left(event) :
             for second_column in range(main_column+1, 4) :
                 if matrix[row][second_column] == 0 :
                     continue
+
+                if matrix[row][main_column] != matrix[row][second_column] :
+                    break
                 
-                if matrix[row][main_column] == matrix[row][second_column] :
+                if matrix[row][main_column] == matrix[row][second_column] and not merged[second_column] :
                     matrix[row][main_column] *= 2
                     matrix[row][second_column] = 0
                     any_movement = True
+                    merged[main_column] = True
                     break
 
     for row in range(4) :
@@ -318,13 +338,17 @@ def move_left(event) :
             
 
     # set_label_equal_matrix()
-    add_2_or_4()
+    if any_movement :
+        add_2_or_4()
     return any_movement
 
 def move_right(event) :
     any_movement = False
 
     for row in range(4) :
+
+        merged = [False] * 4
+
         for main_column in range(3,0,-1) :
             if matrix[row][main_column] == 0 :
                 continue
@@ -332,18 +356,22 @@ def move_right(event) :
             for second_column in range(main_column-1,-1,-1) :
                 if matrix[row][second_column] == 0 :
                     continue
+
+                if matrix[row][main_column] != matrix[row][second_column] :
+                    break
                 
-                if matrix[row][main_column] == matrix[row][second_column] :
+                if matrix[row][main_column] == matrix[row][second_column] and not merged[second_column] :
                     matrix[row][main_column] *= 2
                     matrix[row][second_column] = 0
                     any_movement = True
+                    merged[main_column] = True
                     break
 
     for row in range(4) :
         # Any movement check.
         for column in range(3, 0,-1) :
             if matrix[row][column] == 0 :
-                for second_column in range(column-1, 0, -1) :
+                for second_column in range(column-1, -1, -1) :
                     if matrix[row][second_column] != 0 :
                         any_movement = True
 
@@ -358,7 +386,9 @@ def move_right(event) :
             
 
     # set_label_equal_matrix()
-    add_2_or_4()
+    if any_movement :
+        add_2_or_4()
+
     return any_movement
 
 # Random 2 or 4 adder.
@@ -382,6 +412,8 @@ def add_2_or_4() :
 
 # Initialising the variables var to zero and making the labels colorful.
 set_label_equal_matrix()
+# Calling a random 2/4 to start the game.
+add_2_or_4()
 
 
 """

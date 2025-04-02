@@ -39,3 +39,13 @@ Implemented a basic 2048 game in **Python** using **Tkinter**.
     - 2 : 90%
     - 4 : 10%
 
+#### Version 2
+- Fixed a __MAJOR__ bug in the tile movement logic, For all three Versions 0, 1 and 2.
+Major Bugs Included :
+    1. __Double Merging__ of some tiles in the same move.
+    2. __Generating a Random 2/4__ even though there was __no movement__ of tiles by pressing a key.
+- __Split__ the __main function__ into :
+    1. __config__ : Different settings and Color Settings.
+    2. __fn__ : All the functions used.
+    3. __global_variables__ : All Global Variables Definitions and Declarations.
+    3. __main__ : To send commands via Key Input.
