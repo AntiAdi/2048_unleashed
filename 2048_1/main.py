@@ -374,7 +374,7 @@ def add_2_or_4() :
         return False
     else :
         row_column = random.choice(zero_indices)
-        matrix[row_column[0]][row_column[1]] = random.choice([2,4])
+        matrix[row_column[0]][row_column[1]] = random.choice([2,2,2,2,2,2,2,2,2,4])
         set_label_equal_matrix()
         return True
 

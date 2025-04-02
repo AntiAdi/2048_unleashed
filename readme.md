@@ -26,6 +26,16 @@ Implemented a basic 2048 game in **Python** using **Tkinter**.
 - No OOPs.
 - Fairly Fast.
 - No Different Colors for Different Values.
+- Probabilities of 2 and 4 spawning are 50% each.
+- No Game Over Dialog Box. Manual judging required.
 
+#### Version 1
+![2048 v1](https://drive.google.com/uc?export=view&id=1vA2pXsEhnMTToTJd4FmtTfOVERgxbB37)
 
+- Added Beautiful Colors.
+- Improved Visibility.
+- Empty tiles are Plain Solid Color instead of showing the number zero.
+- Changed the probabilities of 2 and 4 spawning according to the original rules.
+    - 2 : 90%
+    - 4 : 10%
 
