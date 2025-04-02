@@ -251,14 +251,14 @@ def move_up(event) :
 def move_down(event) :
     any_movement = False
 
-    merged = [0] * 4
+    merged = [False] * 4
 
     for column in range(4) :
-        for main_row in range(3) :
+        for main_row in range(3, 0 ,-1) :
             if matrix[main_row][column] == 0 :
                 continue
 
-            for second_row in range(main_row+1, 4) :
+            for second_row in range(main_row-1,-1,-1) :
                 if matrix[second_row][column] == 0 :
                     continue
                 
@@ -266,10 +266,10 @@ def move_down(event) :
                     break
 
                 if matrix[main_row][column] == matrix[second_row][column] and not merged[second_row]:
-                    matrix[second_row][column] *= 2
-                    matrix[main_row][column] = 0
+                    matrix[second_row][column] = 0
+                    matrix[main_row][column] *=2
                     any_movement = True
-                    merged[main_row] = True
+                    merged[second_row] = True
                     break
 
     for column in range(4) :

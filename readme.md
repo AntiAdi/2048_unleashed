@@ -56,3 +56,10 @@ Major Bugs Included :
 - Added a counter for the __Number of Moves__.
 - Added a __Game Over Dialog Box.__
 - Added improved backend functions for backtesting.
+
+### Version 4
+- Fixed a __MAJOR__ bug in the function _move_down()_.
+- Added the ability to use __custom seeds__ in backend for __testing__.
+- Added a __Reset Button__ to reset the game without having to re-run the code.
+- Added __logs__ to use for _debugging, data analysis and back testing._
+
