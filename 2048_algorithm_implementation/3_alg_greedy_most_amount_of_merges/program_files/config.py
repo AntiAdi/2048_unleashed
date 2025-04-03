@@ -3,9 +3,9 @@ import os
 # Filename for CSV Log
 global log_filename
 
-log_filename = "/home/aadityarajk/VS_CODE/2048_unleashed/2048_algorithm_implementation/3_alg_greedy_most_amount_of_merges/logs/115_seed.csv"
+log_filename = "/home/aadityarajk/VS_CODE/2048_unleashed/2048_algorithm_implementation/3_alg_greedy_most_amount_of_merges/logs/6_seed.csv"
 
-random_seed = 115
+random_seed = 6
 
 
 

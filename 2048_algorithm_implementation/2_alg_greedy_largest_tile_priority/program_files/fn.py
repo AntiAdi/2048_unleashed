@@ -16,9 +16,9 @@ random.seed(random_seed)
 def move_up( event=0) :
     any_movement = False
 
-    merged = [False] * 4
 
     for column in range(4) :
+        merged = [False] * 4
         for main_row in range(3) :
             if global_variables.matrix[main_row][column] == 0 :
                 continue
@@ -71,9 +71,9 @@ def move_up( event=0) :
 def move_down( event=0) :
     any_movement = False
 
-    merged = [False] * 4
 
     for column in range(4) :
+        merged = [False] * 4
         for main_row in range(3,0,-1) :
             if global_variables.matrix[main_row][column] == 0 :
                 continue
@@ -127,9 +127,9 @@ def move_down( event=0) :
 def move_left( event=0) :
     any_movement = False
 
-    merged = [False] * 4
 
     for row in range(4) :
+        merged = [False] * 4
         for main_column in range(3) :
             if global_variables.matrix[row][main_column] == 0 :
                 continue
@@ -183,9 +183,9 @@ def move_right( event=0) :
 
     for row in range(4) :
 
-        merged = [False] * 4
 
         for main_column in range(3,0,-1) :
+            merged = [False] * 4
             if global_variables.matrix[row][main_column] == 0 :
                 continue
 
@@ -308,9 +308,9 @@ def dummy_move_left(dummy_matrix) :
     score_change = 0
     largest_tile  = 0
 
-    merged = [False] * 4
 
     for row in range(4) :
+        merged = [False] * 4
         for main_column in range(3) :
             if dummy_matrix[row][main_column] == 0 :
                 continue
@@ -362,9 +362,9 @@ def dummy_move_right(dummy_matrix) :
 
     for row in range(4) :
 
-        merged = [False] * 4
 
         for main_column in range(3,0,-1) :
+            merged = [False] * 4
             if dummy_matrix[row][main_column] == 0 :
                 continue
 
@@ -414,9 +414,9 @@ def dummy_move_down(dummy_matrix) :
     score_change = 0
     largest_tile = 0
 
-    merged = [0] * 4
 
     for column in range(4) :
+        merged = [False] * 4
         for main_row in range(3) :
             if dummy_matrix[main_row][column] == 0 :
                 continue
@@ -468,9 +468,9 @@ def dummy_move_up(dummy_matrix) :
     score_change = 0
     largest_tile = 0
 
-    merged = [False] * 4
 
     for column in range(4) :
+        merged = [False] * 4
         for main_row in range(3) :
             if dummy_matrix[main_row][column] == 0 :
                 continue
