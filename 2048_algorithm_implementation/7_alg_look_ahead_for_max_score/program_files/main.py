@@ -178,30 +178,30 @@ but_reset.grid(row=6, column=0, columnspan=2)
 def get_empty_cells(matrix):
     return [(r, c) for r in range(4) for c in range(4) if matrix[r][c] == 0]
 
+def dynamic_depth(matrix):
+    empty_tiles = sum(row.count(0) for row in matrix)
+    if empty_tiles > 8:
+        return 3  # Look deeper when board is open
+    elif empty_tiles > 4:
+        return 3
+    else:
+        return 2  # Shallower search when board is crowded
+
+
+
 def simulate_random_spawn(matrix):
     empty_cells = get_empty_cells(matrix)
     if not empty_cells:
-        return [] 
+        return []  
 
     new_states = []
     for r, c in empty_cells:
-        for value in [2, 4]:  
+        for value, prob in [(2, 0.9), (4, 0.1)]:  # 90% 2s, 10% 4s
             new_matrix = copy.deepcopy(matrix)
             new_matrix[r][c] = value
-            new_states.append(new_matrix)
-    
+            new_states.append((new_matrix, prob))
+
     return new_states
-
-
-
-
-
-
-
-
-
-
-
 
 
 def lookahead_move(matrix, depth):
@@ -225,22 +225,14 @@ def lookahead_move(matrix, depth):
         if not move_possible:
             continue
 
-
         possible_states = simulate_random_spawn(new_matrix)
         
         if not possible_states:
             continue
-        
 
-        total_score = 0
-        for state in possible_states:
-            state_score, _ = lookahead_move(state, depth - 1)
-            total_score += state_score  
+        # Use Expectimax (weighted probability sum)
+        total_score = sum(state_score * prob for state, prob in possible_states for state_score, _ in [lookahead_move(state, depth - 1)])
 
-        future_score = total_score / len(possible_states)  
-        
-        total_score = score + future_score 
-        
         if total_score > best_score:
             best_score = total_score
             best_move = move
@@ -250,7 +242,7 @@ def lookahead_move(matrix, depth):
 
 def make_best_move():
     """Runs lookahead search and executes the best move."""
-    _, best_move = lookahead_move(global_variables.matrix, depth=3)
+    _, best_move = lookahead_move(global_variables.matrix, depth=dynamic_depth(global_variables.matrix))
     
     if best_move:
         match best_move:
