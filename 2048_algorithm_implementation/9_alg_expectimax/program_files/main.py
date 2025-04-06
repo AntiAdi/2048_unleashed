@@ -339,12 +339,13 @@ def evaluate(matrix):
 
 
     score = 0
-    score += count_empty(matrix) * 100             
-    score += smoothness(matrix) * 20               
-    score += monotonicity(matrix) * 20             
-    score += weighted_score(matrix) * 0.001       
-    score += max_tile_corner(matrix) * 10000        
-    # score += value_square_sum(matrix) * 0.0025      
+    score += count_empty(matrix) * 300             
+    score += smoothness(matrix) * 15               
+    score += monotonicity(matrix) * 30             
+    score += weighted_score(matrix) * 0.002        
+    score += max_tile_corner(matrix) * 5000        
+    score += value_square_sum(matrix) * 0.001      
+    
 
     return score
 
