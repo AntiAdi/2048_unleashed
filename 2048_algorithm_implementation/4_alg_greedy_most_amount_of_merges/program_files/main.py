@@ -120,7 +120,7 @@ def greedy_for_most_merges() :
 
     if ((not move_possible_down) and (not move_possible_up) and (not move_possible_left) and (not move_possible_right)) :
         print(f"\n\tMoves = {global_variables.moves}\n\tScore = {global_variables.score}\n\tLargest Tile = {max(max(row) for row in global_variables.matrix)}\n")
-        root.after(1, root.quit())
+        root.after(finish_wait_time, root.quit())
     
     good_moves = []
 
@@ -168,7 +168,7 @@ def greedy_for_most_merges() :
         case 'l' :
             move_left()
         
-    root.after(1, greedy_for_most_merges)
+    root.after(time_between_moves, greedy_for_most_merges)
     
 
 
