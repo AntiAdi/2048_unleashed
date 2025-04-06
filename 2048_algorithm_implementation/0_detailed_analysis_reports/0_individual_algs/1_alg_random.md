@@ -13,6 +13,26 @@ This report presents an analysis of 500 test runs of a random move-based 2048-so
 - **Max Score Achieved:** 2536  
 - **Max Moves in a Single Game:** 252  
 
+### Largest Tile Distribution
+
+This distribution provides insights into the highest tile reached in each game, helping us understand how far the algorithm typically progresses before the game ends.
+
+| Largest Tile | Games Reached | Percentage (%) |
+|--------------|----------------|----------------|
+| 16           | 1              | 0.2%           |
+| 32           | 37             | 7.49%          |
+| 64           | 166            | 33.6%          |
+| 128          | 251            | 50.81%         |
+| 256          | 39             | 7.89%          |
+
+#### Observations:
+- **128** was the most commonly reached tile, achieved in **over half the games** (50.81%), showing the algorithm has reliable mid-game performance.
+- **33.6%** of the games ended at **64**, suggesting a moderate success rate in achieving decent merges.
+- Only **7.89%** reached **256**, revealing a sharp drop-off after 128 and highlighting potential bottlenecks in late-game decision-making.
+- The presence of early exits is minimal, with just **0.2%** stuck at **16** and **7.49%** at **32**, indicating generally stable early-game play.
+
+
+
 ## Data Visualizations  
 
 ### Score VS Number of Moves  

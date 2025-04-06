@@ -9,3 +9,11 @@ Most Common Largest Tile Reached: 128
 Max Score Achieved: 4448
 Max Moves in a Single Game: 1771
 
+
+Largest Tile Distribution:
+--------------------------
+- 32: 4 games (0.8%)
+- 64: 71 games (14.2%)
+- 128: 237 games (47.4%)
+- 256: 184 games (36.8%)
+- 512: 4 games (0.8%)

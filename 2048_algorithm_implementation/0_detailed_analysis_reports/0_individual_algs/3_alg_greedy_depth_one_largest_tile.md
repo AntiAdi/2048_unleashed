@@ -28,6 +28,29 @@ The algorithm simply **simulates the next four possible moves** and checks for t
 These statistics indicate that the algorithm is capable of sustaining longer games with relatively high tile values, though it may not at all reach extreme scores (Not even 1024). A large number of games concluded with 256 as the maximum tile, suggesting room for optimization in deeper planning.
 
 ---
+### Largest Tile Distribution
+
+This section presents how frequently each tile was the highest achieved in the analyzed games. It provides insights into the algorithm's merging efficiency and typical performance limits.
+
+| Largest Tile | Games Reached | Percentage (%) |
+|--------------|----------------|----------------|
+| 32           | 1              | 0.2%           |
+| 64           | 49             | 9.8%           |
+| 128          | 216            | 43.2%          |
+| 256          | 221            | 44.2%          |
+| 512          | 13             | 2.6%           |
+
+#### Observations:
+- The majority of games reached **128 or 256**, with **over 87%** of runs ending in one of these two tiles.
+- Only **2.6%** of the games reached **512**, indicating the algorithm occasionally achieves higher-level merges but lacks consistency in pushing further.
+- Very few games peaked at **32** or **64**, suggesting most runs had a decent merging strategy and didn’t end prematurely.
+- The balance between **128 and 256** as peak tiles shows a relatively stable mid-level performance, with frequent tile doubling in many sessions.
+
+This breakdown helps evaluate how well the algorithm scales and where it tends to plateau, offering guidance for refining future strategies.
+
+
+
+---
 
 ### Graphical Data Analysis
 

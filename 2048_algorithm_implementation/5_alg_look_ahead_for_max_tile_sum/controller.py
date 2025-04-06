@@ -2,6 +2,11 @@ import subprocess
 import os
 
 
+
+# Number of Test Runs
+test_runs = 500
+
+
 # Path to config.py
 config_file = "program_files/config.py"
 
@@ -33,7 +38,7 @@ def update_config(seed):
 
 
 # Loop through required number of Seeds. !
-for seed in range(1,1000):
+for seed in range(1,test_runs+1):
     print(f"Running with seed {seed}...")
     
     update_config(seed)  # Update the config file

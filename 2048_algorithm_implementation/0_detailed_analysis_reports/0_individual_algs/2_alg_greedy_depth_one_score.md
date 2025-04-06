@@ -13,6 +13,28 @@
 - **Max Moves in a Single Game:** 376  
 
 ---
+### Largest Tile Distribution
+
+This section outlines how frequently each tile was the highest achieved across all analyzed games. It reflects the effectiveness of the strategy in reaching higher merges and sustaining progression.
+
+| Largest Tile | Games Reached | Percentage (%) |
+|--------------|----------------|----------------|
+| 32           | 4              | 0.8%           |
+| 64           | 65             | 13.03%         |
+| 128          | 276            | 55.31%         |
+| 256          | 150            | 30.06%         |
+| 512          | 4              | 0.8%           |
+
+#### Observations:
+- **Over half** of the games (55.31%) peaked at **128**, suggesting that the algorithm consistently reaches mid-level merges.
+- **30.06%** of runs managed to hit **256**, showing a solid extension in tile progression.
+- The appearance of **512** was extremely rare (0.8%), indicating difficulty in sustaining long-term merges or possibly early game-ending patterns.
+- **13%** of games peaked at **64**, while just a few were capped at **32**, reflecting early-game exits or inefficient merging.
+
+
+---
+
+
 
 ### Working of Algorithm
 The *algorithm* simply checks the score increase for the **next 4 possible moves and chooses to perform the one with the highest score change**. If score changes are similar, It chooses randomly amongst the best moves.

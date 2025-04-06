@@ -1,0 +1,19 @@
+
+2048 Algorithm Performance Report
+=================================
+
+Total Games Analyzed: 494
+Average Moves Per Game: 120.48
+Average Final Score: 975.16
+Most Common Largest Tile Reached: 128
+Max Score Achieved: 2536
+Max Moves in a Single Game: 252
+
+
+Largest Tile Distribution:
+--------------------------
+- 16: 1 games (0.2%)
+- 32: 37 games (7.49%)
+- 64: 166 games (33.6%)
+- 128: 251 games (50.81%)
+- 256: 39 games (7.89%)

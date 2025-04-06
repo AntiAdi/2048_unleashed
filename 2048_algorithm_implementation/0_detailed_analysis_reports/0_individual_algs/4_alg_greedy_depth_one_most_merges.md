@@ -21,6 +21,30 @@ This algorithm simply calculates the number of merges for each of the next four 
 | Max Moves in a Single Game    | 1771       |
 
 ---
+
+### Largest Tile Distribution
+
+This section outlines how often each tile was the highest tile achieved across all games analyzed. It gives a clear sense of the algorithm’s ability to build up larger tiles and its general performance in long-term play.
+
+| Largest Tile | Games Reached | Percentage (%) |
+|--------------|----------------|----------------|
+| 32           | 4              | 0.8%           |
+| 64           | 71             | 14.2%          |
+| 128          | 237            | 47.4%          |
+| 256          | 184            | 36.8%          |
+| 512          | 4              | 0.8%           |
+
+#### Observations:
+- Nearly **half of all games** capped at tile **128**, indicating a moderate performance threshold.
+- **256** was reached in over a **third** of the games, suggesting occasional deeper progress.
+- Very **few games** managed to reach **512**, highlighting room for improvement in long-term tile merging efficiency.
+- The low frequency of smaller tiles (32 and 64) indicates that most games are progressing at least to a mid-tier level.
+
+
+
+
+
+---
 ## Graphical Analysis
 
 ### Max Moves Survival

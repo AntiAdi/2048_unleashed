@@ -217,9 +217,9 @@ def make_best_move():
             case 'r': move_right()
     else:
         print(f"\n\tScore = {global_variables.score}\n\tMoves = {global_variables.moves}\n\tLargest Tile = {max(max(row) for row in global_variables.matrix)}\n")
-        root.after(1, root.quit())
+        root.after(finish_wait_time, root.quit())
     
-    root.after(1, make_best_move)
+    root.after(time_between_moves, make_best_move)
 
 # Start automation
 root.after(1, make_best_move)

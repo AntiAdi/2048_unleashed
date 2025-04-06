@@ -1,4 +1,4 @@
-c
+
 2048 Algorithm Performance Report
 =================================
 
@@ -9,3 +9,11 @@ Most Common Largest Tile Reached: 256
 Max Score Achieved: 5068
 Max Moves in a Single Game: 1784
 
+
+Largest Tile Distribution:
+--------------------------
+- 32: 1 games (0.2%)
+- 64: 49 games (9.8%)
+- 128: 216 games (43.2%)
+- 256: 221 games (44.2%)
+- 512: 13 games (2.6%)
