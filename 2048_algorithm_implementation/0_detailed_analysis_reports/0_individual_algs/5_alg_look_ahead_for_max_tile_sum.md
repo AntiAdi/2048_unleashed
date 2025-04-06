@@ -7,7 +7,7 @@ This report presents the performance summary of a 2048-playing algorithm over th
 ### Algorithm Working
 This algorithm looks upto **four moves ahead**, And in each scenerio it generates **ONLY ONE case of random 2/4 spawning.** That Means it potentially checks at **Max 64 different possibilities** for each move. And the **score** for **each possibility is the sum of square of individual elements for each of the 4 moves in a possibility.**
 
-**Square is used** here to **amplify **the **weight** of **larger numbers** and hence reaching **larger outcomes.**
+**Square is used** here to **amplify** the **weight** of **larger numbers** and hence reaching **larger outcomes.**
 
 
 
