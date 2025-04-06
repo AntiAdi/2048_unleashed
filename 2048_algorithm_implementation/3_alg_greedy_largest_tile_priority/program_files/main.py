@@ -188,7 +188,7 @@ def greedy_for_largest_tile_priority() :
 
     if ((not down_possible) and (not up_possible) and (not left_possible) and (not right_possible)) :
         print(f"\n\tMoves = {global_variables.moves}\n\tScore = {global_variables.score}\n\tLargest Tile = {max(max(row) for row in global_variables.matrix)}\n")
-        root.after(1, root.quit())
+        root.after(finish_wait_time, root.quit())
         return None
 
     valid_moves = []
@@ -224,7 +224,7 @@ def greedy_for_largest_tile_priority() :
 
 
 # # Start automation
-root.after(1, greedy_for_largest_tile_priority)  # Start after 1 second
+root.after(time_between_moves, greedy_for_largest_tile_priority)  # Start after 1 second
 root.mainloop()
 
 
