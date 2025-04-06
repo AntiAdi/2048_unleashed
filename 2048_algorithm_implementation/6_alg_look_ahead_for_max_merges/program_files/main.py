@@ -48,6 +48,63 @@ but_reset.grid(row=6, column=0, columnspan=2)
 # but_undo.grid(row=6, column=2, columnspan=2)
 
 
+def lookahead_move(matrix, depth):
+    if depth == 0:
+        return 0, None  # Base case: Evaluate board
+    
+    best_score = float('-inf')
+    best_move = None
+    
+    moves = {
+        'u': dummy_move_up,
+        'd': dummy_move_down,
+        'l': dummy_move_left,
+        'r': dummy_move_right
+    }
+    
+    for move, func in moves.items():
+        new_matrix = copy.deepcopy(matrix)
+        move_possible, merges = func(new_matrix)
+        
+        if not move_possible:
+            continue
+        
+        future_merges, _ = lookahead_move(new_matrix, depth - 1)  
+        
+        total_merges = merges + future_merges 
+        
+        if total_merges > best_score:
+            best_score = total_merges
+            best_move = move
+    
+    return best_score, best_move
+
+
+def make_best_move():
+    """Runs lookahead search and executes the best move."""
+    _, best_move = lookahead_move(global_variables.matrix, depth=4)
+    
+    if best_move:
+        match best_move:
+            case 'u': move_up()
+            case 'd': move_down()
+            case 'l': move_left()
+            case 'r': move_right()
+    else:
+        print(f"\n\tScore = {global_variables.score}\n\tMoves = {global_variables.moves}\n\tLargest Tile = {max(max(row) for row in global_variables.matrix)}\n")
+        root.after(finish_wait_time, root.quit())
+    
+    root.after(time_between_moves, make_best_move)
+
+# Start automation
+root.after(1, make_best_move)
+root.mainloop()
+
+
+
+
+
+
 
 # for _ in range(1000) :
 #     a = random.randint(1,4)
@@ -172,60 +229,9 @@ but_reset.grid(row=6, column=0, columnspan=2)
 # root.mainloop()
 
 
-def evaluate_board(matrix):
-    return  sum(num**10 for row in matrix for num in row) 
+# def evaluate_board(matrix):
+#     return  sum(num**10 for row in matrix for num in row) 
 
-def lookahead_move(matrix, depth):
-    if depth == 0:
-        return 0, None  # Base case: Evaluate board
-    
-    best_score = float('-inf')
-    best_move = None
-    
-    moves = {
-        'u': dummy_move_up,
-        'd': dummy_move_down,
-        'l': dummy_move_left,
-        'r': dummy_move_right
-    }
-    
-    for move, func in moves.items():
-        new_matrix = copy.deepcopy(matrix)
-        move_possible, merges = func(new_matrix)
-        
-        if not move_possible:
-            continue
-        
-        future_merges, _ = lookahead_move(new_matrix, depth - 1)  
-        
-        total_merges = merges + future_merges 
-        
-        if total_merges > best_score:
-            best_score = total_merges
-            best_move = move
-    
-    return best_score, best_move
-
-
-def make_best_move():
-    """Runs lookahead search and executes the best move."""
-    _, best_move = lookahead_move(global_variables.matrix, depth=4)
-    
-    if best_move:
-        match best_move:
-            case 'u': move_up()
-            case 'd': move_down()
-            case 'l': move_left()
-            case 'r': move_right()
-    else:
-        print(f"\n\tScore = {global_variables.score}\n\tMoves = {global_variables.moves}\n\tLargest Tile = {max(max(row) for row in global_variables.matrix)}\n")
-        root.after(1, root.quit())
-    
-    root.after(1, make_best_move)
-
-# Start automation
-root.after(1, make_best_move)
-root.mainloop()
 
 
 

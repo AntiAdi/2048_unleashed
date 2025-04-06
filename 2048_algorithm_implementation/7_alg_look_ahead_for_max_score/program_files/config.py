@@ -1,11 +1,40 @@
+
 import os
+
+
+
+##################################################################################
+""""
+    ONLY THINGS YOU MAY NEED TO CHANGE.
+"""
+
+# How many mili seconds to wait after a test case encounters game over.
+finish_wait_time = 1
+
+# How many mili seconds to wait before the next move.
+time_between_moves = 1
+
+
+# Be sure to clear the log files before new experimenting as the log files are appended.
+
+##################################################################################
+
+
+
+
+
+
+
+
+
+
 
 # Filename for CSV Log
 global log_filename
 
-log_filename = "/Users/aadityarajk/VS_CODE/2048_unleashed/2048_algorithm_implementation/6_alg_look_ahead_for_max_score/logs/2_seed.csv"
+log_filename = "/home/aadityarajk/VS_CODE/2048_unleashed/2048_algorithm_implementation/7_alg_look_ahead_for_max_score/logs/100_seed.csv"
 
-random_seed = 2
+random_seed = 100
 
 
 

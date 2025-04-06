@@ -14,6 +14,7 @@ game_over = False
 
 # Main Instance
 root = Tk()
+# root.withdraw()
 root.title("2048 Algorithm Implementation : Look Ahead for Max Score")
 # root.geometry("400x400")
 

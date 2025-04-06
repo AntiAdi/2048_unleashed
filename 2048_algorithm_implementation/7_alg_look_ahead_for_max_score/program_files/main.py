@@ -47,6 +47,91 @@ lab_score.grid(row=5, column=0, columnspan=4)
 but_reset.grid(row=6, column=0, columnspan=2)
 # but_undo.grid(row=6, column=2, columnspan=2)
 
+def get_empty_cells(matrix):
+    return [(r, c) for r in range(4) for c in range(4) if matrix[r][c] == 0]
+
+def dynamic_depth(matrix):
+    return 2
+    # empty_tiles = sum(row.count(0) for row in matrix)
+    # if empty_tiles > 10:
+    #     return 1  # Look deeper when board is open
+    # elif empty_tiles > 4:
+    #     return 2
+    # else:
+    #     return 3  # Shallower search when board is crowded
+
+
+
+def simulate_random_spawn(matrix):
+    empty_cells = get_empty_cells(matrix)
+    if not empty_cells:
+        return []  
+
+    new_states = []
+    for r, c in empty_cells:
+        for value, prob in [(2, 0.9), (4, 0.1)]:  # 90% 2s, 10% 4s
+            new_matrix = copy.deepcopy(matrix)
+            new_matrix[r][c] = value
+            new_states.append((new_matrix, prob))
+
+    return new_states
+
+
+def lookahead_move(matrix, depth):
+    if depth == 0:
+        return 0, None  # Base case: Evaluate board
+    
+    best_score = float('-inf')
+    best_move = None
+    
+    moves = {
+        'u': dummy_move_up,
+        'd': dummy_move_down,
+        'l': dummy_move_left,
+        'r': dummy_move_right
+    }
+    
+    for move, func in moves.items():
+        new_matrix = copy.deepcopy(matrix)
+        move_possible, score = func(new_matrix)
+        
+        if not move_possible:
+            continue
+
+        possible_states = simulate_random_spawn(new_matrix)
+        
+        if not possible_states:
+            continue
+
+        # Expectimax (weighted probability sum)
+        total_score = sum(state_score * prob for state, prob in possible_states for state_score, _ in [lookahead_move(state, depth - 1)])
+
+        if total_score > best_score:
+            best_score = total_score
+            best_move = move
+    
+    return best_score, best_move
+
+
+def make_best_move():
+    """Runs lookahead search and executes the best move."""
+    _, best_move = lookahead_move(global_variables.matrix, depth=dynamic_depth(global_variables.matrix))
+    
+    if best_move:
+        match best_move:
+            case 'u': move_up()
+            case 'd': move_down()
+            case 'l': move_left()
+            case 'r': move_right()
+    else:
+        print(f"\n\tScore = {global_variables.score}\n\tMoves = {global_variables.moves}\n\tLargest Tile = {max(max(row) for row in global_variables.matrix)}\n")
+        root.after(finish_wait_time, root.quit())
+    
+    root.after(time_between_moves, make_best_move)
+
+# Start automation
+root.after(1, make_best_move)
+root.mainloop()
 
 
 # for _ in range(1000) :
@@ -175,90 +260,6 @@ but_reset.grid(row=6, column=0, columnspan=2)
 # def evaluate_board(matrix):
 #     return  sum(num**10 for row in matrix for num in row) 
 
-def get_empty_cells(matrix):
-    return [(r, c) for r in range(4) for c in range(4) if matrix[r][c] == 0]
-
-def dynamic_depth(matrix):
-    empty_tiles = sum(row.count(0) for row in matrix)
-    if empty_tiles > 8:
-        return 3  # Look deeper when board is open
-    elif empty_tiles > 4:
-        return 3
-    else:
-        return 2  # Shallower search when board is crowded
-
-
-
-def simulate_random_spawn(matrix):
-    empty_cells = get_empty_cells(matrix)
-    if not empty_cells:
-        return []  
-
-    new_states = []
-    for r, c in empty_cells:
-        for value, prob in [(2, 0.9), (4, 0.1)]:  # 90% 2s, 10% 4s
-            new_matrix = copy.deepcopy(matrix)
-            new_matrix[r][c] = value
-            new_states.append((new_matrix, prob))
-
-    return new_states
-
-
-def lookahead_move(matrix, depth):
-    if depth == 0:
-        return 0, None  # Base case: Evaluate board
-    
-    best_score = float('-inf')
-    best_move = None
-    
-    moves = {
-        'u': dummy_move_up,
-        'd': dummy_move_down,
-        'l': dummy_move_left,
-        'r': dummy_move_right
-    }
-    
-    for move, func in moves.items():
-        new_matrix = copy.deepcopy(matrix)
-        move_possible, score = func(new_matrix)
-        
-        if not move_possible:
-            continue
-
-        possible_states = simulate_random_spawn(new_matrix)
-        
-        if not possible_states:
-            continue
-
-        # Use Expectimax (weighted probability sum)
-        total_score = sum(state_score * prob for state, prob in possible_states for state_score, _ in [lookahead_move(state, depth - 1)])
-
-        if total_score > best_score:
-            best_score = total_score
-            best_move = move
-    
-    return best_score, best_move
-
-
-def make_best_move():
-    """Runs lookahead search and executes the best move."""
-    _, best_move = lookahead_move(global_variables.matrix, depth=dynamic_depth(global_variables.matrix))
-    
-    if best_move:
-        match best_move:
-            case 'u': move_up()
-            case 'd': move_down()
-            case 'l': move_left()
-            case 'r': move_right()
-    else:
-        print(f"\n\tScore = {global_variables.score}\n\tMoves = {global_variables.moves}\n\tLargest Tile = {max(max(row) for row in global_variables.matrix)}\n")
-        root.after(1, root.quit())
-    
-    root.after(1, make_best_move)
-
-# Start automation
-root.after(1, make_best_move)
-root.mainloop()
 
 
 
