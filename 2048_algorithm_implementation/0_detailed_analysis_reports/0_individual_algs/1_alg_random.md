@@ -1,4 +1,4 @@
-# 2048 Algorithm Implementation
+    # 2048 Algorithm Implementation
 
 ## Algorithm: Random
 
@@ -25,12 +25,17 @@ This report presents an analysis of 500 test runs of a random move-based 2048-so
 ![Moves Survived vs Number of Games](https://drive.google.com/uc?id=1WXp89ZKQ72mLtBTTGg_WadjBWJ1GQwkh)  
 
 ### Final Score vs Number of Games  
-![Final Score vs Number of Games](https://drive.google.com/uc?id=18Gw5MYNLy7YciPh-WwJdOlSPRHj214tF)  
+![Final Score vs Number of Games](https://drive.google.com/uc?id=18Gw5MYNLy7YciPh-WwJdOlSPRHj214tF) 
+
+### Largest Tile vs Number of Games
+![Largest Tile vs Number of Games](https://drive.google.com/uc?id=1Mweysa9zOwxKmN8IDlkPbo29d-xdSK63)
+
 
 ## Observations  
 - The majority of games ended with a **128 tile** as the highest tile achieved, indicating that the tested algorithm struggles to reach higher tile values.  
 - The **highest recorded score** of 2536 suggests that some runs performed significantly better than the average, possibly due to lucky tile placements.  
 - The **maximum number of moves in a single game** (252) suggests that some sequences prolonged the game without necessarily improving the final score.  
+- **Most number of games** had the **largest tile equal to 128**, Showcasing the **average** and **poor** performance of this algoithm.
 
 ## Next Steps  
 - Conduct further analysis to compare different algorithm performances.  

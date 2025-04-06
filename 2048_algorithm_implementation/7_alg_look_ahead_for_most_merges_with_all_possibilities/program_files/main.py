@@ -238,36 +238,36 @@ def lookahead_move(matrix, depth):
     return best_score, best_move
 
 
-def lookahead_move(matrix, depth):
-    if depth == 0:
-        return 0, None  # Base case: Evaluate board
+# def lookahead_move(matrix, depth):
+#     if depth == 0:
+#         return 0, None  # Base case: Evaluate board
     
-    best_score = float('-inf')
-    best_move = None
+#     best_score = float('-inf')
+#     best_move = None
     
-    moves = {
-        'u': dummy_move_up,
-        'd': dummy_move_down,
-        'l': dummy_move_left,
-        'r': dummy_move_right
-    }
+#     moves = {
+#         'u': dummy_move_up,
+#         'd': dummy_move_down,
+#         'l': dummy_move_left,
+#         'r': dummy_move_right
+#     }
     
-    for move, func in moves.items():
-        new_matrix = copy.deepcopy(matrix)
-        move_possible, merges = func(new_matrix)
+#     for move, func in moves.items():
+#         new_matrix = copy.deepcopy(matrix)
+#         move_possible, merges = func(new_matrix)
         
-        if not move_possible:
-            continue
+#         if not move_possible:
+#             continue
         
-        future_merges, _ = lookahead_move(new_matrix, depth - 1)  
+#         future_merges, _ = lookahead_move(new_matrix, depth - 1)  
         
-        total_merges = merges + future_merges 
+#         total_merges = merges + future_merges 
         
-        if total_merges > best_score:
-            best_score = total_merges
-            best_move = move
+#         if total_merges > best_score:
+#             best_score = total_merges
+#             best_move = move
     
-    return best_score, best_move
+#     return best_score, best_move
 
 
 def make_best_move():

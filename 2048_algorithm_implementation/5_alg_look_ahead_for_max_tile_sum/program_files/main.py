@@ -173,7 +173,8 @@ but_reset.grid(row=6, column=0, columnspan=2)
 
 
 def evaluate_board(matrix):
-    return  sum(num**10 for row in matrix for num in row) 
+    return  sum(num**2 for row in matrix for num in row)
+    # return sum(num**5 if num <= 512 else num**10 for row in matrix for num in row) 
 
 def lookahead_move(matrix, depth):
     if depth == 0:
@@ -206,7 +207,7 @@ def lookahead_move(matrix, depth):
 
 def make_best_move():
     """Runs lookahead search and executes the best move."""
-    _, best_move = lookahead_move(global_variables.matrix, depth=3)
+    _, best_move = lookahead_move(global_variables.matrix, depth=4)
     
     if best_move:
         match best_move:
