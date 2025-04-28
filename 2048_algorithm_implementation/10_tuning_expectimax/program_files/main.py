@@ -288,7 +288,28 @@ def simulate_random_spawn(matrix):
 
 import numpy as np
 
-def evaluate(matrix):
+def reset_game_state():
+    global matrix, score, moves
+    matrix = [[0] * 4 for _ in range(4)]
+    score = 0
+    moves = 0
+    matrix = dummy_add_2_or_4(matrix)
+    matrix = dummy_add_2_or_4(matrix)
+
+
+
+def evaluate(matrix, weights=None):
+    if weights is None:
+        weights = {
+            "empty": 5000,
+            "smooth": 15,
+            "monotonicity": 30,
+            "weighted": 0.002,
+            "corner": 5000,
+            "value_square": 0.001
+        }
+
+    
     matrix = np.array(matrix)
 
     def count_empty(matrix):
@@ -326,26 +347,24 @@ def evaluate(matrix):
         return 1 if max_tile in corners else 0
 
     def weighted_score(matrix):
-        weights = np.array([
+        weights_matrix = np.array([
             [65536, 32768, 16384, 8192],
             [512,   1024,   2048, 4096],
             [256,   128,    64,   32],
             [2,     4,      8,    16]
         ])
-        return np.sum(matrix * weights)
+        return np.sum(matrix * weights_matrix)
 
     def value_square_sum(matrix):
         return sum(num**2 for row in matrix for num in row)
 
-
     score = 0
-    score += count_empty(matrix) *    5000          
-    score += smoothness(matrix) * 15               
-    score += monotonicity(matrix) * 30             
-    score += weighted_score(matrix) * 0.002        
-    score += max_tile_corner(matrix) * 5000        
-    score += value_square_sum(matrix) * 0.001      
-    
+    score += count_empty(matrix)      * weights["empty"]
+    score += smoothness(matrix)       * weights["smooth"]
+    score += monotonicity(matrix)     * weights["monotonicity"]
+    score += weighted_score(matrix)   * weights["weighted"]
+    score += max_tile_corner(matrix)  * weights["corner"]
+    score += value_square_sum(matrix) * weights["value_square"]
 
     return score
 
@@ -353,10 +372,9 @@ def evaluate(matrix):
 
 
 
-
-def expectimax(matrix, depth, is_player_turn=True):
+def expectimax(matrix, depth, is_player_turn=True, weights=None):
     if depth == 0 or not get_empty_cells(matrix):
-        return evaluate(matrix), None
+        return evaluate(matrix, weights), None
 
     if is_player_turn:
         best_score = float('-inf')
@@ -374,35 +392,63 @@ def expectimax(matrix, depth, is_player_turn=True):
             if not moved:
                 continue
 
-            score, _ = expectimax(new_matrix, depth - 1, False)
+            score, _ = expectimax(new_matrix, depth - 1, False, weights)
             if score > best_score:
                 best_score = score
                 best_move = move_name
 
-        
         return best_score, best_move
 
     else:
         total_score = 0
         possibilities = simulate_random_spawn(matrix)
         for new_state, prob in possibilities:
-            score, _ = expectimax(new_state, depth - 1, True)
+            score, _ = expectimax(new_state, depth - 1, True, weights)
             total_score += prob * score
         return total_score, None
 
+
+def play_game_with_weights(weights, num_runs=5):
+    total_score = 0
+    max_tile = 0
+
+    for _ in range(num_runs):  # Run multiple games for each weight configuration
+        reset_game_state()
+        matrix = global_variables.matrix
+
+        while not dummy_game_over_check(matrix):
+            _, move = expectimax(matrix, depth=3, weights=weights)
+            if move:
+                matrix, moved, gained = {
+                    "up": dummy_move_up,
+                    "down": dummy_move_down,
+                    "left": dummy_move_left,
+                    "right": dummy_move_right
+                }[move](matrix)
+                total_score += gained
+                matrix = dummy_add_2_or_4(matrix)
+            else:
+                break
+        
+        max_tile_in_game = max(max(row) for row in matrix)
+        max_tile = max(max_tile, max_tile_in_game)  # Track the max tile across multiple runs
+
+    # Calculate average score and max tile
+    avg_score = total_score / num_runs
+    return avg_score, max_tile
 
 def make_best_move():
     """Runs lookahead search and executes the best move."""
 
     if dummy_game_over_check(global_variables.matrix):
         # print(f"\n\tGame Over!")
-        print(f"\n\tScore = {global_variables.score}")
-        print(f"\tMoves = {global_variables.moves}")
-        print(f"\tLargest Tile = {max(max(row) for row in global_variables.matrix)}\n")
-        root.after(finish_wait_time, root.quit())
+        # print(f"\n\tScore = {global_variables.score}")
+        # print(f"\tMoves = {global_variables.moves}")
+        # print(f"\tLargest Tile = {max(max(row) for row in global_variables.matrix)}\n")
+        # root.after(finish_wait_time, root.quit())
         return 
 
-    _, best_move = expectimax(global_variables.matrix, depth=4)
+    _, best_move = expectimax(global_variables.matrix, depth=2)
 
     if best_move:
         match best_move:
