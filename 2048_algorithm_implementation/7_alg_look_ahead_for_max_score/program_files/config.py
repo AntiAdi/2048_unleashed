@@ -32,9 +32,9 @@ time_between_moves = 1
 # Filename for CSV Log
 global log_filename
 
-log_filename = "/home/aadityarajk/VS_CODE/2048_unleashed/2048_algorithm_implementation/7_alg_look_ahead_for_max_score/logs/100_seed.csv"
+log_filename = "/Users/aadityarajk/VS_CODE/2048_unleashed/2048_algorithm_implementation/7_alg_look_ahead_for_max_score/logs/12_seed.csv"
 
-random_seed = 100
+random_seed = 12
 
 
 
